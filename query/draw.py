@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from dateutil.relativedelta import relativedelta
 
+
 def get_data(start: date, end: date, use_month: bool) -> tuple:
     if use_month:
         delta = relativedelta(months=1)
@@ -40,10 +41,12 @@ def draw(start: date, end: date, use_bar=False, use_month=True):
     plt.xticks(rotation=45)
     plt.show()
 
+def main():
+    start = date(1975, 1, 1)
+    end = date(2020, 12, 31)
+    draw(start, end, False, False)
 
 if __name__ == '__main__':
     figure = plt.figure(figsize=(16, 9))
     figure.set_tight_layout({"pad": .5})
-    start = date(1975, 1, 1)
-    end = date(2020, 12, 31)
-    draw(start, end, False, False)
+    main()

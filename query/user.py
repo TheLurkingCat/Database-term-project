@@ -63,7 +63,7 @@ def login(username: str, password: str):
 
 
 def log(last_params: dict):
-    client.execute(history_table.insert(), [last_params])
+    client.execute(history_table.insert(None), [last_params])
 
 
 # Test register
