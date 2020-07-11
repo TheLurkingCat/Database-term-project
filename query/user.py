@@ -11,7 +11,7 @@ engine = create_engine(
 metadata = MetaData(engine)
 client = engine.connect()
 
-user_table = dbutils.create(metadata)
+user_table, history_table = dbutils.create(metadata)
 
 
 def register(username: str, password: str):
@@ -60,6 +60,10 @@ def login(username: str, password: str):
         if error:
             raise KeyError("Username or password is wrong.")
         print("WOW, you are now in.")
+
+
+def log(last_params: dict):
+    client.execute(history_table.insert(), [last_params])
 
 
 # Test register
