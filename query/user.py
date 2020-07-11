@@ -1,5 +1,6 @@
 from hashlib import pbkdf2_hmac
 from os import urandom
+from typing import Dict, List, Union
 
 from sqlalchemy import MetaData, Table, create_engine
 
@@ -11,7 +12,7 @@ engine = create_engine(
 metadata = MetaData(engine)
 client = engine.connect()
 
-user_table, history_table = dbutils.create(metadata)
+user_table, history_meta_table, history_table = dbutils.create(metadata)
 
 
 def register(username: str, password: str):
@@ -62,8 +63,12 @@ def login(username: str, password: str):
         print("WOW, you are now in.")
 
 
-def log(last_params: dict):
-    client.execute(history_table.insert(None), [last_params])
+def log(username: str, meta: Dict[str, Union[int, bool]], compare_info: List[Dict[str, str]]):
+    meta['username'] = username
+    for dictionary in compare_info:
+        dictionary['username'] = username
+    client.execute(history_meta_table.insert(None), [meta])
+    client.execute(history_table.insert(None), compare_info)
 
 
 # Test register
