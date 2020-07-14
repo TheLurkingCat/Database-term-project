@@ -253,22 +253,18 @@ class FinalProject(App):
             except ValueError:
                 print("No record")
             else:
-                if meta['use_bar']:
-                    self.page.ids['GraphSelect'].ids['usebar'].active = True
-                else:
-                    self.page.ids['GraphSelect'].ids['useline'].active = True
+                self.page.ids['GraphSelect'].ids['usebar'].active = meta['use_bar']
+                self.page.ids['GraphSelect'].ids['useline'].active = not meta['use_bar']
 
-                if meta['use_month']:
-                    self.page.ids['GraphSelect'].ids['usemonth'].active = True
-                else:
-                    self.page.ids['GraphSelect'].ids['useyear'].active = True
+                self.page.ids['GraphSelect'].ids['usemonth'].active = meta['use_month']
+                self.page.ids['GraphSelect'].ids['useyear'].active = not meta['use_month']
 
                 self.page.ids['GraphSelect'].ids['avg'].active = meta['avg']
                 self.page.ids['GraphSelect'].ids['min'].active = meta['min']
                 self.page.ids['GraphSelect'].ids['max'].active = meta['max']
 
                 self.page.ids['Search'].ids['qtype'].text = history['search_type']
-                self.page.ids['Search'].ids['place'].text = history['keyword'] if history['keyword'] is not None else ''
+                self.page.ids['Search'].ids['place'].text = history['keyword']
                 self.page.ids['DateSelect'].ids['StartYear'].text = str(
                     meta['year_start']
                 )
@@ -291,8 +287,7 @@ class FinalProject(App):
             ismax = self.page.ids['GraphSelect'].ids['max'].active
 
             qtype = self.page.ids['Search'].ids['qtype'].text
-            place = None if qtype.lower(
-            ) == 'global' else self.page.ids['Search'].ids['place'].text
+            place = self.page.ids['Search'].ids['place'].text
             try:
                 start_date = date(
                     int(self.page.ids['DateSelect'].ids['StartYear'].text),
@@ -327,44 +322,47 @@ class FinalProject(App):
                 }
                 log(username, meta, compare)
 
-            if qtype.lower() == 'global':
-                if isavg and not ismin and not ismax:
-                    pass
-                elif ismin and not ismax and not isavg:
-                    pass
-                elif ismax and not isavg and not ismin:
-                    pass
-                elif ismin and ismax and not isavg:
-                    pass
-                elif ismax and isavg and not ismin:
-                    pass
-                elif isavg and ismin and not ismax:
-                    pass
-                elif ismin and ismax and isavg:
-                    draw(start_date, end_date, True,
-                         TempType.LANDAVG, place, use_bar, use_month, 'k', 'solid', 211)
-                    draw(start_date, end_date, True,
-                         TempType.LANDMAX, place, use_bar, use_month, 'r', 'solid', 223)
-                    draw(start_date, end_date, True,
-                         TempType.LANDMIN, place, use_bar, use_month, 'b', 'solid', 224)
-                else:
-                    print("No selection")
-            elif qtype.lower() == 'city':
-                draw(start_date, end_date, False,
-                     TableType.CITY, place, use_bar, use_month, 'b', 'solid', 111)
-            elif qtype.lower() == 'country':
-                draw(start_date, end_date, False,
-                     TableType.COUNTRY, place, use_bar, use_month, 'b', 'solid', 111)
-            elif qtype.lower() == 'state':
-                try:
+            try:
+                if qtype.lower() == 'global':
+                    if isavg and not ismin and not ismax:
+                        pass
+                    elif ismin and not ismax and not isavg:
+                        pass
+                    elif ismax and not isavg and not ismin:
+                        pass
+                    elif ismin and ismax and not isavg:
+                        pass
+                    elif ismax and isavg and not ismin:
+                        pass
+                    elif isavg and ismin and not ismax:
+                        pass
+                    elif ismin and ismax and isavg:
+                        draw(start_date, end_date, True,
+                             TempType.LANDAVG, None, use_bar, use_month, 'k', 'solid', 211)
+                        draw(start_date, end_date, True,
+                             TempType.LANDMAX, None, use_bar, use_month, 'r', 'solid', 223)
+                        draw(start_date, end_date, True,
+                             TempType.LANDMIN, None, use_bar, use_month, 'b', 'solid', 224)
+                    else:
+                        print("No selection")
+                elif qtype.lower() == 'city':
+                    draw(start_date, end_date, False,
+                         TableType.CITY, place, use_bar, use_month, 'b', 'solid', 111)
+                elif qtype.lower() == 'country':
+                    draw(start_date, end_date, False,
+                         TableType.COUNTRY, place, use_bar, use_month, 'b', 'solid', 111)
+                elif qtype.lower() == 'state':
                     draw(start_date, end_date, False,
                          TableType.STATE, place, use_bar, use_month, 'b', 'solid', 111)
-                except Exception:
-                    pass
+
+                else:
+                    print("No position")
+            except Exception:
+                pass
             else:
-                print("No position")
-            self.page.ids['Graph'].reload()
-            plt.close()
+                self.page.ids['Graph'].reload()
+            finally:
+                plt.close()
 
 
 if __name__ == '__main__':
