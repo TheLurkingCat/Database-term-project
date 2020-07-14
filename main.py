@@ -1,5 +1,7 @@
 from datetime import date
 from functools import partial
+from os import remove
+from os.path import exists
 
 import matplotlib.pyplot as plt
 from kivy.app import App
@@ -175,15 +177,11 @@ class GraphSelect(GridLayout):
         self.add_widget(Label())
 
 
-class Graph(BoxLayout):
+class Graph(Image):
 
     def __init__(self, **kwargs):
         super(Graph, self).__init__(**kwargs)
-        self.image = Image(source='figure.png')
-        self.add_widget(self.image)
-
-    def reload(self):
-        self.image.reload()
+        self.source = 'figure.png'
 
 
 class SearchInfo(GridLayout):
@@ -360,6 +358,7 @@ class FinalProject(App):
             except Exception:
                 pass
             else:
+                plt.savefig('figure.png')
                 self.page.ids['Graph'].reload()
             finally:
                 plt.close()
@@ -367,3 +366,5 @@ class FinalProject(App):
 
 if __name__ == '__main__':
     FinalProject().run()
+    if exists('figure.png'):
+        remove('figure.png')
