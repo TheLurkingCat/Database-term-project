@@ -33,7 +33,6 @@ def get_data(start: date, end: date, isglobal: bool, qtype: Enum, use_month: boo
 
 
 def draw(start: date, end: date, isglobal: bool, qtype: Enum, place=None, use_bar=False, use_month=True, color='k', style='solid', subpos=111) -> None:
-
     figure = plt.figure("Final Project", figsize=(16, 9))
     figure.set_tight_layout({"pad": .5})
     plt.subplot(subpos)
@@ -48,4 +47,3 @@ def draw(start: date, end: date, isglobal: bool, qtype: Enum, place=None, use_ba
     plot_function(data[0], data[1][0], yerr=data[1][1],
                   ecolor='g', linestyle=style, **kwargs)
     plt.xticks(rotation=45)
-    plt.savefig("figure.png")
