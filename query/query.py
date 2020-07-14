@@ -82,9 +82,6 @@ def local_temperature(start: date, end: date, table_type: TableType, place: str,
     ret = np.array(list(client.execute(query)))
     if use_month:
         return ret.transpose()
-    print(ret.reshape(-1, 12, 2))
-    print(np.array([x.transpose().mean(axis=1)
-                    for x in ret.reshape(-1, 12, 2)]))
     return np.array([x.transpose().mean(axis=1) for x in ret.reshape(-1, 12, 2)]).transpose()
 
 
@@ -143,19 +140,5 @@ def global_temperature(start: date, end: date, temp_type: TempType, use_month: b
 
     ret = np.array(list(client.execute(query)))
     if use_month:
-        # print(np.array([x.transpose().mean(axis=1)
-        #                 for x in ret.reshape(-1, 12, 2)]).transpose().shape)
-        # print(ret.transpose().shape)
         return ret.transpose()
     return np.array([x.transpose().mean(axis=1) for x in ret.reshape(-1, 12, 2)]).transpose()
-
-
-if __name__ == '__main__':
-    start = date(1917, 1, 1)
-    end = date(1920, 1, 1)
-    Type = TableType.STATE
-    temp = TempType.BOTHAVG
-    place = 'Alagoas'
-    a = global_temperature(start, end, temp, False)
-    for year_avg in a:
-        print(year_avg)

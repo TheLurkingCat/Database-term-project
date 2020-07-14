@@ -31,10 +31,6 @@ def get_data(start: date, end: date, isglobal: bool, qtype: Enum, use_month: boo
     print(len(horizontal), len(data[0]), len(data[1]))
     return horizontal, data
 
-# plt.subplot(2, 1, 1)
-# plt.subplot(2, 2, 3)
-# plt.subplot(2, 2, 4)
-
 
 def draw(start: date, end: date, isglobal: bool, qtype: Enum, place=None, use_bar=False, use_month=True, color='k', style='solid', subpos=111) -> None:
 
@@ -53,28 +49,3 @@ def draw(start: date, end: date, isglobal: bool, qtype: Enum, place=None, use_ba
                   ecolor='g', linestyle=style, **kwargs)
     plt.xticks(rotation=45)
     plt.savefig("figure.png")
-    """
-    kwargs['color'] = 'r'
-    dataset = get_data(start, end, use_month)
-    for idx, data in enumerate(dataset):
-        plot_function(*data,  linestyle=style[idx % 4], **kwargs)
-    plt.xticks(rotation=45)
-
-    kwargs['color'] = 'b'
-    dataset = get_data(start, end, use_month)
-    for idx, data in enumerate(dataset):
-        plot_function(*data, linestyle=style[idx % 4], **kwargs)
-    plt.xticks(rotation=45)
-    """
-
-
-def main():
-    start = date(1975, 1, 1)
-    end = date(2000, 12, 31)
-    qtype = query.TempType.BOTHAVG
-    plt.subplot(2, 1, 1)
-    draw(start, end, True, qtype, None, False, False)
-
-
-if __name__ == '__main__':
-    main()
