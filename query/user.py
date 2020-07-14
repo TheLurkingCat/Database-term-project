@@ -40,7 +40,7 @@ def create():
         'history', metadata,
         Column('username', String(100), nullable=False, primary_key=True),
         Column('search_type', String(16), nullable=False),
-        Column('keyword', String(128), nullable=True)
+        Column('keyword', String(128), nullable=False)
     )
     metadata.create_all()
 
