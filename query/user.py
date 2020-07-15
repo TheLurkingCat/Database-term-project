@@ -127,8 +127,8 @@ def retrieve(username: str):
     history = client.execute(query)
     query = history_meta_table.select().where(
         history_meta_table.c.username == username)
-    metadata = client.execute(query)
-    return list(metadata) + list(history)
+    his_metadata = client.execute(query)
+    return list(his_metadata) + list(history)
 
 
 if __name__ == '__main__':
