@@ -49,8 +49,8 @@ def local_temperature(start: date, end: date, table_type: TableType, place: str,
             [table.c.AverageTemperature, table.c.AverageTemperatureUncertainty]
         ).where(
             and_(
-                (table.c.dt >= start),
-                (table.c.dt <= end),
+                (table.c.dt >= start_str),
+                (table.c.dt <= end_str),
                 (table.c.City == place)
             )
         )
