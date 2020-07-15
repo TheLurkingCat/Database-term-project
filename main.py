@@ -323,17 +323,29 @@ class FinalProject(App):
             try:
                 if qtype.lower() == 'global':
                     if isavg and not ismin and not ismax:
-                        pass
+                        draw(start_date, end_date, True,
+                             TempType.LANDAVG, None, use_bar, use_month, 'k', 'solid', 111)
                     elif ismin and not ismax and not isavg:
-                        pass
+                        draw(start_date, end_date, True,
+                             TempType.LANDMIN, None, use_bar, use_month, 'b', 'solid', 111)
                     elif ismax and not isavg and not ismin:
-                        pass
+                        draw(start_date, end_date, True,
+                             TempType.LANDMAX, None, use_bar, use_month, 'r', 'solid', 111)
                     elif ismin and ismax and not isavg:
-                        pass
+                        draw(start_date, end_date, True,
+                             TempType.LANDMIN, None, use_bar, use_month, 'b', 'solid', 211)
+                        draw(start_date, end_date, True,
+                             TempType.LANDMAX, None, use_bar, use_month, 'r', 'solid', 212)
                     elif ismax and isavg and not ismin:
-                        pass
+                        draw(start_date, end_date, True,
+                             TempType.LANDAVG, None, use_bar, use_month, 'k', 'solid', 211)
+                        draw(start_date, end_date, True,
+                             TempType.LANDMAX, None, use_bar, use_month, 'r', 'solid', 212)
                     elif isavg and ismin and not ismax:
-                        pass
+                        draw(start_date, end_date, True,
+                             TempType.LANDAVG, None, use_bar, use_month, 'k', 'solid', 211)
+                        draw(start_date, end_date, True,
+                             TempType.LANDMIN, None, use_bar, use_month, 'b', 'solid', 212)
                     elif ismin and ismax and isavg:
                         draw(start_date, end_date, True,
                              TempType.LANDAVG, None, use_bar, use_month, 'k', 'solid', 211)
@@ -345,13 +357,13 @@ class FinalProject(App):
                         print("No selection")
                 elif qtype.lower() == 'city':
                     draw(start_date, end_date, False,
-                         TableType.CITY, place, use_bar, use_month, 'b', 'solid', 111)
+                         TableType.CITY, place, use_bar, use_month, 'k', 'solid', 111)
                 elif qtype.lower() == 'country':
                     draw(start_date, end_date, False,
-                         TableType.COUNTRY, place, use_bar, use_month, 'b', 'solid', 111)
+                         TableType.COUNTRY, place, use_bar, use_month, 'k', 'solid', 111)
                 elif qtype.lower() == 'state':
                     draw(start_date, end_date, False,
-                         TableType.STATE, place, use_bar, use_month, 'b', 'solid', 111)
+                         TableType.STATE, place, use_bar, use_month, 'k', 'solid', 111)
 
                 else:
                     print("No position")
