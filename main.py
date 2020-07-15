@@ -367,8 +367,8 @@ class FinalProject(App):
 
                 else:
                     print("No position")
-            except Exception:
-                pass
+            except Exception as err:
+                print(str(err))
             else:
                 plt.savefig('figure.png')
                 self.page.ids['Graph'].reload()
