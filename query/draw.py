@@ -28,7 +28,6 @@ def get_data(start: date, end: date, isglobal: bool, qtype: Enum, use_month: boo
     while temp <= end:
         horizontal.append(temp.strftime(fmt))
         temp += delta
-    print(len(horizontal), len(data[0]), len(data[1]))
     return horizontal, data
 
 
